@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DLS Nadavi — Data Analyst</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+:root {
+  --white:   #ffffff;
+  --off:     #f8f8f6;
+  --stone:   #f2f0ec;
+  --rule:    #e4e0d8;
+  --ink-4:   #111111;
+  --ink-3:   #2c2c2c;
+  --ink-2:   #555555;
+  --ink-1:   #8a8780;
+  --blue:    #1446a0;
+  --blue-lt: #1a5fdc;
+  --blue-bg: #eef2fa;
+  --radius:  4px;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Outfit', sans-serif;
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { background: var(--white); color: var(--ink-3); font-family: var(--sans); line-height: 1.7; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+img { display: block; max-width: 100%; }
+
+#prog { position: fixed; top:0; left:0; height:2px; width:0%; background:var(--blue); z-index:9999; transition:width .1s linear; }
+
+header {
+  position: fixed; top:0; left:0; right:0; z-index:1000;
+  background: rgba(255,255,255,.96); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+  transition: box-shadow .3s var(--ease);
+}
+header.raised { box-shadow: 0 2px 24px rgba(0,0,0,.06); }
+.nav-wrap {
+  max-width:1200px; margin:0 auto; padding:0 40px;
+  height:64px; display:flex; align-items:center; justify-content:space-between;
+}
+.brand { font-family:var(--serif); font-size:20px; font-weight:600; color:var(--ink-4); letter-spacing:.02em; }
+.brand span { color:var(--blue); }
+.nav-list { display:flex; gap:32px; }
+.nav-list a {
+  font-size:12px; font-weight:400; letter-spacing:.07em; text-transform:uppercase;
+  color:var(--ink-2); position:relative; transition:color .2s;
+}
+.nav-list a::after { content:''; position:absolute; bottom:-3px; left:0; height:1px; width:0; background:var(--blue); transition:width .25s var(--ease); }
+.nav-list a:hover, .nav-list a.active { color:var(--blue); }
+.nav-list a:hover::after, .nav-list a.active::after { width:100%; }
+.nav-cta { padding:8px 20px; background:var(--blue); color:white !important; border-radius:var(--radius); font-weight:500 !important; }
+.nav-cta::after { display:none !important; }
+.nav-cta:hover { background:#0d3585 !important; }
+.ham { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+.ham span { display:block; width:22px; height:1.5px; background:var(--ink-3); transition:all .3s; }
+
+.wrap { max-width:1200px; margin:0 auto; padding:0 40px; }
+section { padding:100px 0; }
+#about, #projects, #contact { background:var(--off); }
+
+.eyebrow { display:inline-flex; align-items:center; gap:10px; font-size:11px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--blue); margin-bottom:14px; }
+.eyebrow::before { content:''; display:block; width:28px; height:1px; background:var(--blue); }
+h2.hl { font-family:var(--serif); font-size:clamp(36px,4vw,54px); font-weight:300; color:var(--ink-4); line-height:1.15; margin-bottom:16px; }
+h2.hl strong { font-weight:600; }
+.sub { font-size:15.5px; color:var(--ink-2); max-width:520px; line-height:1.85; }
+
+.r  { opacity:0; transform:translateY(22px); transition:opacity .65s var(--ease),transform .65s var(--ease); }
+.rl { opacity:0; transform:translateX(-22px); transition:opacity .65s var(--ease),transform .65s var(--ease); }
+.rr { opacity:0; transform:translateX(22px);  transition:opacity .65s var(--ease),transform .65s var(--ease); }
+.r.in,.rl.in,.rr.in { opacity:1; transform:none; }
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ── HERO ── */
+#home {
+  min-height:100vh; display:flex; align-items:center;
+  padding:120px 0 80px; position:relative; overflow:hidden; background:var(--white);
+}
+#home::before {
+  content:''; position:absolute; inset:0;
+  background-image: repeating-linear-gradient(transparent,transparent 79px,var(--rule) 79px,var(--rule) 80px);
+  opacity:.3; pointer-events:none;
+}
+#home::after { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:linear-gradient(to bottom,var(--blue),transparent); }
+.hero-grid { display:grid; grid-template-columns:1fr 400px; gap:80px; align-items:center; position:relative; z-index:1; }
+.h-kick { font-size:12px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:var(--blue); margin-bottom:18px; display:flex; align-items:center; gap:12px; opacity:0; animation:su .6s .1s var(--ease) forwards; }
+.h-kick::before { content:''; width:40px; height:1px; background:var(--blue); }
+.h-name { font-family:var(--serif); font-size:clamp(52px,7vw,86px); font-weight:300; line-height:1.0; color:var(--ink-4); letter-spacing:-.01em; margin-bottom:6px; opacity:0; animation:su .6s .22s var(--ease) forwards; }
+.h-name strong { font-weight:600; display:block; }
+.h-role { font-family:var(--serif); font-size:clamp(18px,2.2vw,26px); font-weight:300; font-style:italic; color:var(--ink-2); margin-bottom:28px; opacity:0; animation:su .6s .34s var(--ease) forwards; }
+#trole { color:var(--blue); font-style:normal; font-weight:400; }
+#trole::after { content:'|'; animation:blink 1s step-end infinite; color:var(--blue); }
+@keyframes blink{50%{opacity:0}}
+.h-bio { font-size:16px; color:var(--ink-2); line-height:1.85; max-width:480px; margin-bottom:36px; border-left:2px solid var(--rule); padding-left:20px; opacity:0; animation:su .6s .46s var(--ease) forwards; }
+.h-btns { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px; opacity:0; animation:su .6s .58s var(--ease) forwards; }
+.btn-s { padding:12px 28px; background:var(--blue); color:white; border-radius:var(--radius); font-size:13px; font-weight:500; letter-spacing:.05em; border:1.5px solid var(--blue); cursor:pointer; transition:all .2s; display:inline-flex; align-items:center; gap:8px; }
+.btn-s:hover { background:#0d3585; transform:translateY(-2px); box-shadow:0 6px 20px rgba(20,70,160,.25); }
+.btn-g { padding:12px 28px; background:transparent; color:var(--blue); border-radius:var(--radius); font-size:13px; font-weight:500; letter-spacing:.05em; border:1.5px solid var(--blue); cursor:pointer; transition:all .2s; display:inline-flex; align-items:center; gap:8px; }
+.btn-g:hover { background:var(--blue-bg); transform:translateY(-2px); }
+.h-soc { display:flex; gap:10px; opacity:0; animation:su .6s .7s var(--ease) forwards; }
+.sl { width:38px; height:38px; border:1px solid var(--rule); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--ink-2); font-size:14px; transition:all .2s; }
+.sl:hover { border-color:var(--blue); color:var(--blue); transform:translateY(-2px); }
+
+/* Hero card */
+.h-card { background:var(--white); border:1px solid var(--rule); border-radius:8px; overflow:hidden; box-shadow:0 8px 48px rgba(0,0,0,.07); opacity:0; animation:sr .7s .3s var(--ease) forwards; }
+.h-photo { height:290px; background:var(--stone); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+
+/* ★ FIX 1: Hero image → ROUNDED SQUARE */
+.h-photo img {
+  width:220px; height:220px;
+  object-fit:cover; object-position: top center;
+  border-radius:14px;                          /* rounded square */
+  border:3px solid var(--blue);
+  box-shadow:0 4px 24px rgba(20,70,160,.18);
+}
+.initials { width:110px; height:110px; border-radius:12px; background:var(--blue-bg); border:2px solid var(--blue); display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:40px; font-weight:600; color:var(--blue); }
+.h-card-body { padding:22px 26px; }
+.h-card-body h3 { font-family:var(--serif); font-size:21px; font-weight:600; color:var(--ink-4); margin-bottom:3px; }
+.h-card-body p { font-size:13px; color:var(--ink-1); margin-bottom:0; }
+.card-stats { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--rule); border-top:1px solid var(--rule); margin:16px -26px -22px; }
+.cs { background:var(--white); padding:14px 18px; text-align:center; }
+.cs .n { font-family:var(--serif); font-size:26px; font-weight:600; color:var(--blue); line-height:1; }
+.cs .l { font-size:10px; color:var(--ink-1); margin-top:3px; letter-spacing:.06em; text-transform:uppercase; }
+@keyframes su { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+@keyframes sr { from{opacity:0;transform:translateX(24px)} to{opacity:1;transform:none} }
+
+/* ── ABOUT ── */
+.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
+.a-photo { position:relative; display:flex; justify-content:center; align-items:center; }
+
+/* ★ FIX 2: About image → CIRCLE */
+.a-frame {
+  width:280px; height:280px;
+  border-radius:50%;                           /* perfect circle */
+  overflow:hidden;
+  background:var(--stone);
+  border:3px solid var(--blue);
+  box-shadow:0 6px 32px rgba(20,70,160,.14);
+  flex-shrink:0;
+}
+.a-frame img { width:100%; height:100%; object-fit:cover; object-position: top center; }
+.a-ph { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; color:var(--ink-1); }
+.a-ph i { font-size:64px; opacity:.2; }
+.a-ph span { font-size:12px; letter-spacing:.06em; text-transform:uppercase; opacity:.35; }
+/* corner brackets adjusted for circle container */
+.bkt { position:absolute; width:30px; height:30px; border-color:var(--blue); border-style:solid; opacity:.45; }
+.bkt-tl { top:-14px; left:calc(50% - 140px - 14px); border-width:2px 0 0 2px; }
+.bkt-br { bottom:-14px; right:calc(50% - 140px - 14px); border-width:0 2px 2px 0; }
+.a-text p { font-size:15.5px; color:var(--ink-2); line-height:1.85; margin-bottom:22px; }
+.info-tbl { width:100%; border-collapse:collapse; margin-bottom:32px; font-size:13.5px; }
+.info-tbl tr { border-bottom:1px solid var(--rule); }
+.info-tbl tr:first-child { border-top:1px solid var(--rule); }
+.info-tbl td { padding:11px 0; }
+.info-tbl td:first-child { font-weight:500; color:var(--ink-4); width:130px; font-size:11px; letter-spacing:.06em; text-transform:uppercase; }
+.info-tbl td:last-child { color:var(--ink-2); }
+
+/* ── EXPERTISE ── */
+.exp-head { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:end; margin-bottom:56px; }
+.svc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:6px; overflow:hidden; margin-bottom:52px; }
+.svc { background:var(--white); padding:30px 26px; transition:background .2s; cursor:default; }
+.svc:hover { background:var(--blue-bg); }
+.svc-num { font-family:var(--serif); font-size:13px; color:var(--blue); margin-bottom:14px; }
+.svc i { font-size:20px; color:var(--blue); opacity:.7; margin-bottom:12px; display:block; }
+.svc h3 { font-size:13px; font-weight:600; color:var(--ink-4); letter-spacing:.04em; text-transform:uppercase; margin-bottom:9px; }
+.svc p { font-size:13.5px; color:var(--ink-2); line-height:1.7; }
+.sk-panel { display:grid; grid-template-columns:1fr 1fr; gap:48px; padding:44px; background:var(--white); border:1px solid var(--rule); border-radius:6px; }
+.sk-col h4 { font-size:10px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-4); margin-bottom:26px; padding-bottom:12px; border-bottom:1px solid var(--rule); }
+.br { margin-bottom:20px; }
+.br-meta { display:flex; justify-content:space-between; font-size:13px; color:var(--ink-3); margin-bottom:7px; }
+.br-meta span:last-child { color:var(--blue); font-weight:500; }
+.br-track { height:5px; background:var(--rule); border-radius:3px; overflow:hidden; }
+.br-fill { height:100%; background:linear-gradient(to right,#1446a0,var(--blue-lt)); border-radius:3px; width:0; transition:width 1.1s var(--ease); }
+
+/* ── PROJECTS ── */
+.proj-hdr { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:40px; gap:20px; flex-wrap:wrap; }
+.fpills { display:flex; gap:6px; flex-wrap:wrap; }
+.fp { padding:7px 18px; border-radius:100px; border:1px solid var(--rule); background:var(--white); font-size:11px; font-weight:500; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-2); cursor:pointer; transition:all .2s; }
+.fp:hover,.fp.active { background:var(--blue); border-color:var(--blue); color:white; }
+.pg { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.pc { background:var(--white); border:1px solid var(--rule); border-radius:6px; overflow:hidden; transition:box-shadow .3s,transform .3s; }
+.pc:hover { box-shadow:0 10px 36px rgba(20,70,160,.1); transform:translateY(-4px); }
+
+/* Project thumbnail area */
+.pt { height:164px; background:var(--stone); overflow:hidden; position:relative; }
+.pt img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
+.pc:hover .pt img { transform:scale(1.04); }
+
+/* ★ FIX 3: Project placeholder — clear visible background + icon */
+.pt-ph {
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:8px;
+  background: var(--blue-bg);           /* solid visible background */
+}
+.pt-ph i {
+  font-size:34px;
+  color:var(--blue);
+  opacity:.55;
+}
+
+.cat-tag { position:absolute; top:11px; right:11px; padding:3px 9px; background:white; border:1px solid var(--rule); border-radius:3px; font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--blue); }
+.pb { padding:18px 20px; }
+.pb h3 { font-size:14.5px; font-weight:500; color:var(--ink-4); margin-bottom:6px; line-height:1.4; }
+.pb p { font-size:13px; color:var(--ink-2); line-height:1.65; margin-bottom:12px; }
+.chips { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:13px; }
+.chip { padding:3px 9px; background:var(--blue-bg); border-radius:3px; font-size:11px; font-weight:500; color:var(--blue); }
+.plinks { display:flex; gap:7px; flex-wrap:wrap; }
+.pl { display:inline-flex; align-items:center; gap:5px; padding:5px 11px; border:1px solid var(--rule); border-radius:3px; font-size:11px; font-weight:500; color:var(--ink-2); letter-spacing:.04em; text-transform:uppercase; transition:border-color .2s,color .2s; }
+.pl:hover { border-color:var(--blue); color:var(--blue); }
+
+/* ── PUBLICATIONS ── */
+.pub { display:grid; grid-template-columns:280px 1fr; gap:44px; align-items:center; padding:38px; border:1px solid var(--rule); border-radius:6px; background:var(--white); margin-bottom:22px; transition:box-shadow .3s; }
+.pub:hover { box-shadow:0 8px 32px rgba(0,0,0,.06); }
+.pub-img { aspect-ratio:4/3; background:var(--stone); border-radius:4px; overflow:hidden; border:1px solid var(--rule); }
+.pub-img img { width:100%; height:100%; object-fit:cover; }
+
+/* ★ FIX 4: Publication placeholder — clear visible background + icon */
+.pub-ph {
+  width:100%; height:100%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:10px;
+  background: var(--blue-bg);           /* solid visible background */
+}
+.pub-ph i {
+  font-size:46px;
+  color:var(--blue);
+  opacity:.55;
+}
+
+.pub-venue { font-size:11px; font-weight:600; letter-spacing:.13em; text-transform:uppercase; color:var(--blue); margin-bottom:9px; }
+.pub-title { font-family:var(--serif); font-size:22px; font-weight:600; color:var(--ink-4); line-height:1.35; margin-bottom:11px; }
+.pub-desc { font-size:14px; color:var(--ink-2); line-height:1.8; margin-bottom:18px; }
+
+/* ── CONTACT ── */
+.con-grid { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start; }
+.cc { display:flex; align-items:center; gap:18px; padding:19px 22px; background:var(--white); border:1px solid var(--rule); border-radius:6px; margin-bottom:12px; transition:box-shadow .2s,transform .2s; }
+.cc:hover { box-shadow:0 4px 20px rgba(20,70,160,.08); transform:translateX(4px); }
+.ci { width:42px; height:42px; border-radius:8px; background:var(--blue-bg); border:1px solid rgba(20,70,160,.15); display:flex; align-items:center; justify-content:center; color:var(--blue); font-size:16px; flex-shrink:0; }
+.cd h4 { font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-4); margin-bottom:3px; }
+.cd p,.cd a { font-size:14px; color:var(--ink-2); line-height:1.5; transition:color .2s; }
+.cd a:hover { color:var(--blue); }
+.avail-box { padding:22px; border:1px solid var(--rule); border-radius:6px; background:var(--white); margin-top:20px; }
+.adot { display:inline-block; width:8px; height:8px; background:#22c55e; border-radius:50%; margin-right:8px; box-shadow:0 0 6px rgba(34,197,94,.5); animation:ap 2s infinite; }
+@keyframes ap{0%,100%{opacity:1}50%{opacity:.4}}
+.albl { font-size:13px; color:var(--ink-3); font-weight:500; }
+.con-r-title { font-family:var(--serif); font-size:32px; font-weight:300; color:var(--ink-4); line-height:1.3; margin-bottom:14px; }
+.con-r-title strong { font-weight:600; }
+.con-r p { font-size:15px; color:var(--ink-2); line-height:1.85; margin-bottom:26px; }
+.con-soc { display:flex; gap:10px; }
+
+/* ── FOOTER ── */
+footer { background:var(--ink-4); color:rgba(255,255,255,.7); padding:40px 0 26px; }
+.ft { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; margin-bottom:24px; }
+.fbrand { font-family:var(--serif); font-size:18px; font-weight:600; color:white; }
+.fbrand span { color:#7fa6e8; }
+.flinks { display:flex; gap:26px; }
+.flinks a { font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.45); transition:color .2s; }
+.flinks a:hover { color:white; }
+.fsoc { display:flex; gap:10px; }
+.fsoc a { width:33px; height:33px; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; color:rgba(255,255,255,.45); transition:all .2s; }
+.fsoc a:hover { border-color:rgba(255,255,255,.5); color:white; }
+.fcopy { text-align:center; font-size:11px; color:rgba(255,255,255,.22); border-top:1px solid rgba(255,255,255,.07); padding-top:18px; }
+
+#btt { position:fixed; bottom:28px; right:28px; width:40px; height:40px; background:var(--blue); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; box-shadow:0 4px 16px rgba(20,70,160,.3); z-index:999; opacity:0; visibility:hidden; transform:translateY(10px); transition:all .3s; cursor:pointer; }
+#btt.show { opacity:1; visibility:visible; transform:none; }
+#btt:hover { background:#0d3585; transform:translateY(-2px); }
+
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;max-width:600px;margin:0 auto}
+  .h-card{display:none}
+  .about-grid,.con-grid{grid-template-columns:1fr}
+  .a-photo{max-width:320px;margin:0 auto}
+  .exp-head{grid-template-columns:1fr}
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .sk-panel{grid-template-columns:1fr}
+  .pub{grid-template-columns:1fr}
+  .pub-img{max-width:260px}
+}
+@media(max-width:768px){
+  .wrap{padding:0 20px}
+  section{padding:70px 0}
+  .nav-list{display:none}
+  .nav-list.open{display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:white;border-bottom:1px solid var(--rule);padding:24px 20px;gap:22px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.08);z-index:999}
+  .ham{display:flex}
+  .pg{grid-template-columns:1fr}
+  .svc-grid{grid-template-columns:1fr}
+  .proj-hdr{flex-direction:column;align-items:flex-start}
+  .ft{flex-direction:column;text-align:center}
+  .flinks,.fsoc{justify-content:center}
+  .a-frame{width:220px;height:220px}
+}
+  </style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<header id="hdr">
+  <div class="nav-wrap">
+    <div class="brand">DLS <span>Nadavi</span></div>
+    <ul class="nav-list" id="nav">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#expertise">Expertise</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#Publications">Publications</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="ham" id="ham"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ══════ HERO ══════ -->
+<section id="home">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="h-kick">Data Analyst &amp; Applied Data Scientist</div>
+        <h1 class="h-name">DLS<br><strong>Nadavi</strong></h1>
+        <div class="h-role">Specialising in <span id="trole">Data Science</span></div>
+        <p class="h-bio">Undergraduate at General Sir John Kotelawala Defence University pursuing Applied Data Science Communication. Merging analytical depth with strategic marketing insight to drive data-informed decisions.</p>
+        <div class="h-btns">
+          <a href="#projects" class="btn-s"><i class="fas fa-layer-group"></i> View Projects</a>
+          <a href="https://drive.google.com/drive/folders/1nw7IudKzrHU-lxQIaYuINZM8z3pdppTo?usp=sharing" target="_blank" class="btn-g"><i class="fas fa-file-alt"></i> Download CV</a>
+        </div>
+        <div class="h-soc">
+          <a href="https://github.com/DLSNadavi" target="_blank" class="sl"><i class="fab fa-github"></i></a>
+          <a href="https://linkedin.com/in/DLSNadavi" target="_blank" class="sl"><i class="fab fa-linkedin-in"></i></a>
+          <a href="mailto:dlsnadavi2021@gmail.com" class="sl"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+
+      <!-- Hero card — image is ROUNDED SQUARE -->
+      <div class="h-card">
+        <div class="h-photo">
+          <img src="image/My2.png" alt="DLS Nadavi" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="initials" style="display:none">SN</div>
+        </div>
+        <div class="h-card-body">
+          <h3>Dambure Liyanage Senera Nadavi</h3>
+          <p>Applied Data Science Communication, General Sir John Kotelawala Defence University, Sri Lanka</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ABOUT ══════ -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <!-- About photo — CIRCLE -->
+      <div class="a-photo rl">
+        <div class="a-frame">
+          <img src="image/My2.png" alt="DLS Nadavi"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="a-ph" style="display:none"><i class="fas fa-user"></i><span>Profile Photo</span></div>
+        </div>
+        <div class="bkt bkt-tl"></div>
+        <div class="bkt bkt-br"></div>
+      </div>
+      <div class="a-text rr">
+        <div class="eyebrow">About Me</div>
+        <h2 class="hl">Analytical mind,<br><strong>strategic vision</strong></h2>
+        <p>A final-year undergraduate in Applied Data Science Communication at General Sir John Kotelawala Defence University, currently pursuing a Postgraduate Diploma in Marketing Management at the Sri Lanka Institute of Marketing.</p>
+        <p>Experienced as a Research Intern, with strong skills in data analysis, data cleaning, data visualization, and Power BI dashboard development. Highly motivated to leverage data-driven insights to support analytical problem-solving and informed business decision-making.</p>
+        <table class="info-tbl">
+          <tr><td>Full Name</td><td>Dambure Liyanage Senera Nadavi</td></tr>
+          <tr><td>University</td><td>KDU — General Sir John Kotelawala Defence University</td></tr>
+          <tr><td>Email</td><td>dlsnadavi2021@gmail.com</td></tr>
+          <tr><td>Phone</td><td>+94 71 146 0191</td></tr>
+          <tr><td>Location</td><td>Ambalangoda, Southern Province, Sri Lanka</td></tr>
+          <tr><td>Status</td><td>Open to Opportunities</td></tr>
+        </table>
+        <a href="https://drive.google.com/drive/folders/1nw7IudKzrHU-lxQIaYuINZM8z3pdppTo?usp=sharing" target="_blank" class="btn-s" style="display:inline-flex"><i class="fas fa-download"></i> Download CV</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ EXPERTISE ══════ -->
+<section id="expertise">
+  <div class="wrap">
+    <div class="exp-head">
+      <div class="r">
+        <div class="eyebrow">Expertise</div>
+        <h2 class="hl">Skills &amp;<br><strong>capabilities</strong></h2>
+      </div>
+      <p class="sub r d2">A practitioner across data science, machine learning, business intelligence, and strategic marketing — combining technical depth with communication clarity.</p>
+    </div>
+    <div class="svc-grid r">
+      <div class="svc"><i class="fas fa-chart-bar"></i><div class="svc-num">01</div><h3>Data Visualisation</h3><p>Designing clear, compelling Power BI dashboards and reports that communicate insights to any audience.</p></div>
+      <div class="svc"><i class="fas fa-database"></i><div class="svc-num">02</div><h3>Data Science</h3><p>Extracting actionable insights using R and Python, statistical modelling, and end-to-end data pipelines.</p></div>
+      <div class="svc"><i class="fas fa-brain"></i><div class="svc-num">03</div><h3>Machine Learning</h3><p>Building classification, regression, and recommendation models with Scikit-learn, Python, and R.</p></div>
+      <div class="svc"><i class="fas fa-comments"></i><div class="svc-num">04</div><h3>Effective Communication</h3><p>Translating complex data into clear narratives — presentations, reports, and stakeholder briefings.</p></div>
+      <div class="svc"><i class="fas fa-cogs"></i><div class="svc-num">05</div><h3>Process Automation</h3><p>Streamlining workflows and reducing manual effort using Microsoft Power Platform and Power Automate.</p></div>
+      <div class="svc"><i class="fas fa-bullhorn"></i><div class="svc-num">06</div><h3>Marketing Strategy</h3><p>Developing data-driven marketing plans, digital strategies, and brand-growth frameworks.</p></div>
+    </div>
+    <div class="sk-panel r">
+      <div class="sk-col">
+        <h4>Technical Proficiency</h4>
+        <div class="br"><div class="br-meta"><span>Power BI</span><span>95%</span></div><div class="br-track"><div class="br-fill" data-w="95"></div></div></div>
+        <div class="br"><div class="br-meta"><span>R Studio</span><span>80%</span></div><div class="br-track"><div class="br-fill" data-w="80"></div></div></div>
+        <div class="br"><div class="br-meta"><span>Python</span><span>80%</span></div><div class="br-track"><div class="br-fill" data-w="80"></div></div></div>
+      </div>
+      <div class="sk-col">
+        <h4>Platforms &amp; Tools</h4>
+        <div class="br"><div class="br-meta"><span>Microsoft Power Platform</span><span>75%</span></div><div class="br-track"><div class="br-fill" data-w="75"></div></div></div>
+        <div class="br"><div class="br-meta"><span>MS-SQL</span><span>70%</span></div><div class="br-track"><div class="br-fill" data-w="70"></div></div></div>
+        <div class="br"><div class="br-meta"><span>Machine Learning</span><span>80%</span></div><div class="br-track"><div class="br-fill" data-w="80"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PROJECTS ══════ -->
+<section id="projects">
+  <div class="wrap">
+    <div class="proj-hdr r">
+      <div><div class="eyebrow">Portfolio</div><h2 class="hl" style="margin-bottom:0">Featured <strong>Projects</strong></h2></div>
+      <div class="fpills">
+        <button class="fp active" data-f="all">All</button>
+        <button class="fp" data-f="web">Data Science</button>
+        <button class="fp" data-f="app">Marketing</button>
+      </div>
+    </div>
+    <div class="pg">
+
+      <div class="pc r" data-cat="web">
+        <div class="pt">
+          <img src="image/1.png" alt="Crime Analysis LA" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-chart-pie"></i></div>
+          <span class="cat-tag">Power BI</span>
+        </div>
+        <div class="pb">
+          <h3>Crime Analysis — Los Angeles Dashboard</h3>
+          <p>Visualises crime trends, hotspots, and patterns to support law enforcement and public safety.</p>
+          <div class="chips"><span class="chip">Power BI</span><span class="chip">R</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/1GU9z-EE4Z0-6862f3pt6uJOZ8RapRO65?usp=sharing" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Crimes-in-the-Los-Angeles" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r d1" data-cat="web">
+        <div class="pt">
+          <img src="image/2.png" alt="Association Rule Mining" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-project-diagram"></i></div>
+          <span class="cat-tag">R</span>
+        </div>
+        <div class="pb">
+          <h3>Association Rule Mining — Student Dataset</h3>
+          <p>Identifies behavioural patterns and academic correlations using the Apriori algorithm.</p>
+          <div class="chips"><span class="chip">R</span><span class="chip">Apriori</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/18rHLmD5ifhV_n9Qe4cdEkhbJHEtYHRbW?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Association-Rule-Mining-with-Student-Dataset" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r d2" data-cat="web">
+        <div class="pt">
+          <img src="image/3.png" alt="Olympic Games Analysis" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-medal"></i></div>
+          <span class="cat-tag">Power BI</span>
+        </div>
+        <div class="pb">
+          <h3>Historic Olympic Games Analysis</h3>
+          <p>Tracks performance metrics, medal counts, and athlete statistics across Olympic history.</p>
+          <div class="chips"><span class="chip">Power BI</span><span class="chip">MySQL</span><span class="chip">Report Builder</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/15YSjzOVAAesuw38iv1JMwdTr-kHIl5yF?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Olympic_History_Analysis" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r" data-cat="web">
+        <div class="pt">
+          <img src="image/4.png" alt="Child Well-Being Monitor" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-child"></i></div>
+          <span class="cat-tag">Report Builder</span>
+        </div>
+        <div class="pb">
+          <h3>Child Well-Being Monitor — Power BI Reports</h3>
+          <p>Monitors education, safety, and well-being indicators for children in Peru and Vietnam.</p>
+          <div class="chips"><span class="chip">Power BI</span><span class="chip">Report Builder</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/1DtZNJlEo_Js1LKuImuwNE9hl_AMYI4ei?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Child-Well-Being-Monitor-in-Peru-Vietnam-" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r d1" data-cat="web">
+        <div class="pt">
+          <img src="image/5.png" alt="Greater Manchester Energy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-bolt"></i></div>
+          <span class="cat-tag">Power BI</span>
+        </div>
+        <div class="pb">
+          <h3>Greater Manchester Energy Performance Analyser</h3>
+          <p>Analyses domestic energy efficiency and sustainability across Greater Manchester properties.</p>
+          <div class="chips"><span class="chip">Power BI</span><span class="chip">MySQL</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/1-j12XXNmGQ0g_zs5WR4EH5TYenWy0Kb6?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Greater-Manchester-Domestic-Energy-Performance-Analyzer" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r d2" data-cat="web">
+        <div class="pt">
+          <img src="image/6.png" alt="Student Attendance Tracker" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-mobile-alt"></i></div>
+          <span class="cat-tag">Power Apps</span>
+        </div>
+        <div class="pb">
+          <h3>Student Attendance Tracker — Power Apps</h3>
+          <p>Manages and tracks student attendance records via a custom-built Power Apps interface.</p>
+          <div class="chips"><span class="chip">Power Apps</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/14XmHfiOqYaHWNP01gtTH77yLrzB2n1ci?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Student-Attendance-Tracker-Power-App" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r" data-cat="web">
+        <div class="pt">
+          <img src="image/7.png" alt="Employee Leave Requests" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-tasks"></i></div>
+          <span class="cat-tag">Power Automate</span>
+        </div>
+        <div class="pb">
+          <h3>Employee Leave Requests Approval Workflow</h3>
+          <p>Automates and streamlines the approval process for employee leave requests using Power Automate.</p>
+          <div class="chips"><span class="chip">Power Automate</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/1Osf8GEf6gtaBJViL4u4t6UPCiUxDF4LW?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Employee-Leave-Request-Automate-Flow-Power-Automate-" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r d1" data-cat="web">
+        <div class="pt">
+          <img src="image/8.png" alt="Iris Flower Classification" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-robot"></i></div>
+          <span class="cat-tag">ML</span>
+        </div>
+        <div class="pb">
+          <h3>Iris Flower Classification</h3>
+          <p>Classifies Iris species using supervised ML algorithms based on petal and sepal measurements.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">Scikit-learn</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/1OvY2Ydr8HxnPoUf0Ss4fFqHQP8WG4tuX?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/CodeAlpha_task-01_Iris-Flower-Classification" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r d2" data-cat="web">
+        <div class="pt">
+          <img src="image/9.png" alt="Car Price Prediction" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-car"></i></div>
+          <span class="cat-tag">ML</span>
+        </div>
+        <div class="pb">
+          <h3>Car Price Prediction</h3>
+          <p>Predicts vehicle resale prices using regression models trained on mileage, age, and brand features.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">Regression</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/1Wfq3yQVMLPV0FDA7Q3uWhAU2FyUnLGPm?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/CodeAlpha_task-03_Car_Price_Prediction" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r" data-cat="web">
+        <div class="pt">
+          <img src="image/10.png" alt="Sales Prediction" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-chart-line"></i></div>
+          <span class="cat-tag">ML</span>
+        </div>
+        <div class="pb">
+          <h3>Sales Prediction</h3>
+          <p>Forecasts future sales using historical data and ML techniques to optimise inventory and marketing.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">Forecasting</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/1MvX2GLHZ_TFh3-0ps7fqdCJJaRPB88hJ?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/CodeAlpha_task-04_Sales_Prediction" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r d1" data-cat="web">
+        <div class="pt">
+          <img src="image/11.png" alt="Raisin Classification" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-seedling"></i></div>
+          <span class="cat-tag">R / ML</span>
+        </div>
+        <div class="pb">
+          <h3>Raisin Variety Classification using R</h3>
+          <p>Classifies raisin varieties using R and classification algorithms based on physical characteristics.</p>
+          <div class="chips"><span class="chip">R</span><span class="chip">Classification</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/1OTR-8odPtBhhoexVsfjMkL_cQDPgaB_1?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Defining-Raisin-Variety-using-Classification-Algorithm-R" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r d2" data-cat="web">
+        <div class="pt">
+          <img src="image/12.png" alt="Diabetes Regression" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-heartbeat"></i></div>
+          <span class="cat-tag">R / ML</span>
+        </div>
+        <div class="pb">
+          <h3>Regression Analysis — Diabetes Dataset</h3>
+          <p>Analyses diabetes dataset to predict outcomes and identify key influencing factors using regression.</p>
+          <div class="chips"><span class="chip">R</span><span class="chip">Regression</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/1HUxxOA-9s1i2-kHMflflUMZ_hRt4hQ0P?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Regression-Analysis-using-Diabetes-Dataset-" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r" data-cat="web">
+        <div class="pt">
+          <img src="image/19.png" alt="Book Recommendation App" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-book"></i></div>
+          <span class="cat-tag">ML</span>
+        </div>
+        <div class="pb">
+          <h3>Book Recommendation App — BookBuddy</h3>
+          <p>Personalised reading recommendations by genre using content-based filtering.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">Recommender</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/1A9njcrYJNj-_9JN4zOEgnzDcfwdsU1PR?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Personal-Book-Recommendation-App.git" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r d1" data-cat="app">
+        <div class="pt">
+          <img src="image/13.png" alt="Commercial Bank Management" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-university"></i></div>
+          <span class="cat-tag">Management</span>
+        </div>
+        <div class="pb">
+          <h3>Management &amp; Organizational Behavior — Commercial Bank of Ceylon</h3>
+          <p>Studies management practices and employee behaviour at Commercial Bank of Ceylon for organisational improvement.</p>
+          <div class="chips"><span class="chip">Management</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/1y1x2D--XXe1wIFhlTJL0QmuuSGmCK-Y_?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Management-Organizational-Behavior-of-Commercial-Bank-of-Ceylon-PLC-2022-" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r d2" data-cat="app">
+        <div class="pt">
+          <img src="image/14.png" alt="Ayurvedic Company Strategy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-leaf"></i></div>
+          <span class="cat-tag">Marketing</span>
+        </div>
+        <div class="pb">
+          <h3>Strategic Expansion Plan — Ayurvedic Company</h3>
+          <p>Data-driven growth strategy leveraging social media trends for an Ayurvedic brand.</p>
+          <div class="chips"><span class="chip">Marketing</span><span class="chip">Digital Strategy</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/13Uy2sCOY5ThIJa7EkjBCdLrxWSLrGNHC?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Strategic-Expansion-and-Growth-Plan-for-an-Ayurvedic-Company--" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r" data-cat="app">
+        <div class="pt">
+          <img src="image/15.png" alt="patpat.lk Digital Marketing" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-store"></i></div>
+          <span class="cat-tag">Digital Marketing</span>
+        </div>
+        <div class="pb">
+          <h3>Digital Marketing Strategy — patpat.lk 2.0</h3>
+          <p>Full digital marketing plan to strengthen online presence and drive customer engagement.</p>
+          <div class="chips"><span class="chip">SEO</span><span class="chip">Social Media</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/1H2sI_d2klKXMYVuKjY9DJ_8c8isP-Epc?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Digital-Marketing-Strategy-for-patpat.lk-2.0" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r d1" data-cat="app">
+        <div class="pt">
+          <img src="image/16.png" alt="Sweets Company Marketing" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-candy-cane"></i></div>
+          <span class="cat-tag">Marketing Strategy</span>
+        </div>
+        <div class="pb">
+          <h3>Innovative Marketing Strategies — Sweets Company</h3>
+          <p>Designs creative marketing strategies to boost brand awareness and sales for a sweets company.</p>
+          <div class="chips"><span class="chip">Marketing</span><span class="chip">Branding</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/1yNe7jxSv3sdQx6x8m8TCL0cVmzdBJ8wq?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Innovative-Marketing-Strategies-for-A-Sweets-Company" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r d2" data-cat="app">
+        <div class="pt">
+          <img src="image/17.png" alt="Fast Food Brand Sri Lanka" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-utensils"></i></div>
+          <span class="cat-tag">Marketing Strategy</span>
+        </div>
+        <div class="pb">
+          <h3>New Fast Food Brand Entry Strategy — Sri Lanka</h3>
+          <p>Market entry and brand-growth plan for a new fast-food concept in Sri Lanka.</p>
+          <div class="chips"><span class="chip">Market Research</span><span class="chip">Branding</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/1lBXbGlhF23_82kW76nB_4Z9zwBUSlBdK?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Strategy-for-A-New-Fast-Food-Brand-Plan-in-Sri-Lanka" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc r" data-cat="app">
+        <div class="pt">
+          <img src="image/18.png" alt="Bakery Sales Division" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-bread-slice"></i></div>
+          <span class="cat-tag">Sales Strategy</span>
+        </div>
+        <div class="pb">
+          <h3>Setting Up a Sales Division — Bakery Company</h3>
+          <p>Plans and implements a sales division to expand market reach and increase revenue for a bakery.</p>
+          <div class="chips"><span class="chip">Marketing</span><span class="chip">Sales</span></div>
+          <div class="plinks">
+            <a href="https://drive.google.com/drive/folders/17G1kRE980R1C-cvUbkDksrjU_eKucefK?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
+            <a href="https://github.com/DLSNadavi/Setting-up-a-Sales-division-for-A-Bakery-Company" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PUBLICATIONS ══════ -->
+<section id="Publications">
+  <div class="wrap">
+    <div class="eyebrow r">Research</div>
+    <h2 class="hl r d1">Published <strong>Works</strong></h2>
+    <p class="sub r d2" style="margin-bottom:44px">Peer-reviewed research contributions and conference publications.</p>
+    <div class="pub r">
+      <div class="pub-img">
+        <img src="image/Publication 01.png" alt="Publication 1"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <!-- Publication placeholder with clear background -->
+        <div class="pub-ph" style="display:none"><i class="fas fa-file-alt"></i></div>
+      </div>
+      <div>
+        <div class="pub-venue">KDU International Research Conference · 2024</div>
+        <div class="pub-title">A Survey-Based Analysis Integrating Artificial Intelligence in Ayurvedic Practices</div>
+        <p class="pub-desc">Explores the integration potential of artificial intelligence within traditional Ayurvedic medicine, grounded in survey data and emerging technological advancements. Published at the International Research Conference 2024 at General Sir John Kotelawala Defence University, Ratmalana, Sri Lanka.</p>
+        <div class="chips" style="margin-bottom:16px"><span class="chip">Artificial Intelligence</span><span class="chip">Ayurvedic Medicine</span><span class="chip">Survey Analysis</span></div>
+        <div class="plinks">
+          <a href="https://drive.google.com/drive/folders/1h6KCd4H1TChVffw0iHTL1q6EQp_gOR3S?usp=sharing" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Google Drive</a>
+          <a href="https://github.com/DLSNadavi/A-survey-based-analysis-of-integrating-AI-in-Ayurveda" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CONTACT ══════ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="con-grid">
+      <div class="rl">
+        <div class="eyebrow">Contact</div>
+        <div class="cc"><div class="ci"><i class="fas fa-envelope"></i></div><div class="cd"><h4>Email</h4><a href="mailto:dlsnadavi2021@gmail.com">dlsnadavi2021@gmail.com</a></div></div>
+        <div class="cc"><div class="ci"><i class="fas fa-phone"></i></div><div class="cd"><h4>Phone</h4><p>+94 71 146 0191</p></div></div>
+        <div class="cc"><div class="ci"><i class="fas fa-map-marker-alt"></i></div><div class="cd"><h4>Location</h4><p>Ambalangoda, Southern Province, Sri Lanka</p></div></div>
+        <div class="cc"><div class="ci"><i class="fab fa-linkedin-in"></i></div><div class="cd"><h4>LinkedIn</h4><a href="https://linkedin.com/in/DLSNadavi" target="_blank">linkedin.com/in/DLSNadavi</a></div></div>
+        <div class="avail-box"><span class="adot"></span><span class="albl">Available for internships, projects &amp; collaborations</span></div>
+      </div>
+      <div class="con-r rr d2">
+        <div class="con-r-title">Let's work<br><strong>together</strong></div>
+        <p>Whether you need a data analyst for a project, collaboration on research, or a marketing strategy backed by data — I'd be glad to connect and explore how we can work together.</p>
+        <div class="con-soc">
+          <a href="https://github.com/DLSNadavi" target="_blank" class="sl"><i class="fab fa-github"></i></a>
+          <a href="https://linkedin.com/in/DLSNadavi" target="_blank" class="sl"><i class="fab fa-linkedin-in"></i></a>
+          <a href="mailto:dlsnadavi2021@gmail.com" class="sl"><i class="fas fa-envelope"></i></a>
+        </div>
+        <div style="margin-top:28px;padding:26px;background:var(--white);border:1px solid var(--rule);border-radius:6px;">
+          <p style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);margin-bottom:14px;">Quick Info</p>
+          <table class="info-tbl" style="font-size:13px;margin:0">
+            <tr><td>Response time</td><td>Within 24 hours</td></tr>
+            <tr><td>Preferred contact</td><td>Email or LinkedIn</td></tr>
+            <tr><td>Open to</td><td>Remote &amp; On-site Opportunities in Colombo, Galle, and Nearby Areas</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div class="fbrand">DLS <span>Nadavi</span></div>
+      <div class="flinks">
+        <a href="#home">Home</a><a href="#about">About</a><a href="#expertise">Expertise</a>
+        <a href="#projects">Projects</a><a href="#Publications">Publications</a><a href="#contact">Contact</a>
+      </div>
+      <div class="fsoc">
+        <a href="https://github.com/DLSNadavi" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/DLSNadavi" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+    <div class="fcopy">&copy; 2025 DLS Nadavi. All rights reserved.</div>
+  </div>
+</footer>
+
+<div id="btt"><i class="fas fa-arrow-up"></i></div>
+
+<script>
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  prog.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+});
+
+const hdr = document.getElementById('hdr'), btt = document.getElementById('btt');
+window.addEventListener('scroll', () => {
+  hdr.classList.toggle('raised', window.scrollY > 30);
+  btt.classList.toggle('show', window.scrollY > 400);
+});
+btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+const ham = document.getElementById('ham'), nav = document.getElementById('nav');
+ham.addEventListener('click', () => {
+  nav.classList.toggle('open');
+  const open = nav.classList.contains('open');
+  const sp = ham.querySelectorAll('span');
+  sp[0].style.transform = open ? 'rotate(45deg) translate(5px,5px)' : '';
+  sp[1].style.opacity   = open ? '0' : '1';
+  sp[2].style.transform = open ? 'rotate(-45deg) translate(5px,-5px)' : '';
+});
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  nav.classList.remove('open');
+  ham.querySelectorAll('span').forEach(s => { s.style.transform=''; s.style.opacity='1'; });
+}));
+
+const secs = document.querySelectorAll('section[id]');
+const nas  = document.querySelectorAll('.nav-list a');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY + 90;
+  secs.forEach(s => {
+    if (y >= s.offsetTop && y < s.offsetTop + s.offsetHeight) {
+      nas.forEach(a => a.classList.remove('active'));
+      const a = document.querySelector(`.nav-list a[href="#${s.id}"]`);
+      if (a) a.classList.add('active');
+    }
+  });
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); window.scrollTo({ top: t.offsetTop - 64, behavior: 'smooth' }); }
+  });
+});
+
+const ro = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);} }), {threshold:.1});
+document.querySelectorAll('.r,.rl,.rr').forEach(el => ro.observe(el));
+
+const bo = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.querySelectorAll('.br-fill').forEach(f=>f.style.width=f.dataset.w+'%'); bo.unobserve(e.target); } }), {threshold:.3});
+document.querySelectorAll('.sk-panel').forEach(el => bo.observe(el));
+
+document.querySelectorAll('.fp').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fp').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.f;
+    document.querySelectorAll('.pc').forEach(c => {
+      const show = f==='all' || c.dataset.cat===f;
+      if(show){ c.style.display=''; requestAnimationFrame(()=>{c.style.opacity='1';c.style.transform='';}); }
+      else{ c.style.opacity='0'; c.style.transform='scale(0.96)'; setTimeout(()=>c.style.display='none',240); }
+    });
+  });
+});
+
+const roles=['Data Science','Power BI Analytics','Machine Learning','Marketing Strategy','Data Visualisation'];
+let ri=0,ci=0,del=false;
+const te=document.getElementById('trole');
+function type(){
+  const w=roles[ri];
+  te.textContent=del?w.slice(0,--ci):w.slice(0,++ci);
+  if(!del&&ci===w.length){del=true;setTimeout(type,1800);return;}
+  if(del&&ci===0){del=false;ri=(ri+1)%roles.length;}
+  setTimeout(type,del?45:85);
+}
+setTimeout(type,1000);
+</script>
+</body>
+</html>
