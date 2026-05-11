@@ -110,12 +110,10 @@ h2.hl strong { font-weight:600; }
 /* Hero card */
 .h-card { background:var(--white); border:1px solid var(--rule); border-radius:8px; overflow:hidden; box-shadow:0 8px 48px rgba(0,0,0,.07); opacity:0; animation:sr .7s .3s var(--ease) forwards; }
 .h-photo { height:290px; background:var(--stone); display:flex; align-items:center; justify-content:center; overflow:hidden; }
-
-/* ★ FIX 1: Hero image → ROUNDED SQUARE */
 .h-photo img {
   width:220px; height:220px;
   object-fit:cover; object-position: top center;
-  border-radius:14px;                          /* rounded square */
+  border-radius:14px;
   border:3px solid var(--blue);
   box-shadow:0 4px 24px rgba(20,70,160,.18);
 }
@@ -133,11 +131,9 @@ h2.hl strong { font-weight:600; }
 /* ── ABOUT ── */
 .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
 .a-photo { position:relative; display:flex; justify-content:center; align-items:center; }
-
-/* ★ FIX 2: About image → CIRCLE */
 .a-frame {
   width:280px; height:280px;
-  border-radius:50%;                           /* perfect circle */
+  border-radius:50%;
   overflow:hidden;
   background:var(--stone);
   border:3px solid var(--blue);
@@ -148,7 +144,6 @@ h2.hl strong { font-weight:600; }
 .a-ph { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; color:var(--ink-1); }
 .a-ph i { font-size:64px; opacity:.2; }
 .a-ph span { font-size:12px; letter-spacing:.06em; text-transform:uppercase; opacity:.35; }
-/* corner brackets adjusted for circle container */
 .bkt { position:absolute; width:30px; height:30px; border-color:var(--blue); border-style:solid; opacity:.45; }
 .bkt-tl { top:-14px; left:calc(50% - 140px - 14px); border-width:2px 0 0 2px; }
 .bkt-br { bottom:-14px; right:calc(50% - 140px - 14px); border-width:0 2px 2px 0; }
@@ -185,25 +180,16 @@ h2.hl strong { font-weight:600; }
 .pg { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
 .pc { background:var(--white); border:1px solid var(--rule); border-radius:6px; overflow:hidden; transition:box-shadow .3s,transform .3s; }
 .pc:hover { box-shadow:0 10px 36px rgba(20,70,160,.1); transform:translateY(-4px); }
-
-/* Project thumbnail area */
 .pt { height:164px; background:var(--stone); overflow:hidden; position:relative; }
 .pt img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
 .pc:hover .pt img { transform:scale(1.04); }
-
-/* ★ FIX 3: Project placeholder — clear visible background + icon */
 .pt-ph {
   width:100%; height:100%;
   display:flex; align-items:center; justify-content:center;
   flex-direction:column; gap:8px;
-  background: var(--blue-bg);           /* solid visible background */
+  background: var(--blue-bg);
 }
-.pt-ph i {
-  font-size:34px;
-  color:var(--blue);
-  opacity:.55;
-}
-
+.pt-ph i { font-size:34px; color:var(--blue); opacity:.55; }
 .cat-tag { position:absolute; top:11px; right:11px; padding:3px 9px; background:white; border:1px solid var(--rule); border-radius:3px; font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--blue); }
 .pb { padding:18px 20px; }
 .pb h3 { font-size:14.5px; font-weight:500; color:var(--ink-4); margin-bottom:6px; line-height:1.4; }
@@ -219,20 +205,13 @@ h2.hl strong { font-weight:600; }
 .pub:hover { box-shadow:0 8px 32px rgba(0,0,0,.06); }
 .pub-img { aspect-ratio:4/3; background:var(--stone); border-radius:4px; overflow:hidden; border:1px solid var(--rule); }
 .pub-img img { width:100%; height:100%; object-fit:cover; }
-
-/* ★ FIX 4: Publication placeholder — clear visible background + icon */
 .pub-ph {
   width:100%; height:100%;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   gap:10px;
-  background: var(--blue-bg);           /* solid visible background */
+  background: var(--blue-bg);
 }
-.pub-ph i {
-  font-size:46px;
-  color:var(--blue);
-  opacity:.55;
-}
-
+.pub-ph i { font-size:46px; color:var(--blue); opacity:.55; }
 .pub-venue { font-size:11px; font-weight:600; letter-spacing:.13em; text-transform:uppercase; color:var(--blue); margin-bottom:9px; }
 .pub-title { font-family:var(--serif); font-size:22px; font-weight:600; color:var(--ink-4); line-height:1.35; margin-bottom:11px; }
 .pub-desc { font-size:14px; color:var(--ink-2); line-height:1.8; margin-bottom:18px; }
@@ -336,7 +315,7 @@ footer { background:var(--ink-4); color:rgba(255,255,255,.7); padding:40px 0 26p
         </div>
       </div>
 
-      <!-- Hero card — image is ROUNDED SQUARE -->
+      <!-- Hero card -->
       <div class="h-card">
         <div class="h-photo">
           <img src="image/My2.png" alt="DLS Nadavi" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -355,7 +334,6 @@ footer { background:var(--ink-4); color:rgba(255,255,255,.7); padding:40px 0 26p
 <section id="about">
   <div class="wrap">
     <div class="about-grid">
-      <!-- About photo — CIRCLE -->
       <div class="a-photo rl">
         <div class="a-frame">
           <img src="image/My2.png" alt="DLS Nadavi"
@@ -704,6 +682,7 @@ footer { background:var(--ink-4); color:rgba(255,255,255,.7); padding:40px 0 26p
         </div>
       </div>
 
+      <!-- FIX: was missing closing quote on href, target="_blank" was inside the href string -->
       <div class="pc r d2" data-cat="app">
         <div class="pt">
           <img src="image/17.png" alt="Fast Food Brand Sri Lanka" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -716,7 +695,7 @@ footer { background:var(--ink-4); color:rgba(255,255,255,.7); padding:40px 0 26p
           <div class="chips"><span class="chip">Market Research</span><span class="chip">Branding</span></div>
           <div class="plinks">
             <a href="https://drive.google.com/drive/folders/1lBXbGlhF23_82kW76nB_4Z9zwBUSlBdK?usp=drive_link" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
-            <a href="https://github.com/DLS-Nadavi/Strategy-for-A-New-Fast-Food-Brand-Plan-in-Sri-Lanka.git target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://github.com/DLS-Nadavi/Strategy-for-A-New-Fast-Food-Brand-Plan-in-Sri-Lanka.git" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
           </div>
         </div>
       </div>
@@ -738,14 +717,15 @@ footer { background:var(--ink-4); color:rgba(255,255,255,.7); padding:40px 0 26p
         </div>
       </div>
 
+      <!-- FIX: added image/ prefix to src -->
       <div class="pc r d2" data-cat="web">
         <div class="pt">
-          <img src="policy_document_summarization_policy_generator.png" alt="Policy Document Summarization & Policy Generator" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="pt-ph" style="display:none"><i class="fas fa-mobile-alt"></i></div>
+          <img src="image/policy_document_summarization_policy_generator.png" alt="Policy Document Summarization & Policy Generator" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-file-contract"></i></div>
           <span class="cat-tag">Python</span>
         </div>
         <div class="pb">
-          <h3>Policy Document Summarization & Policy Generator</h3>
+          <h3>Policy Document Summarization &amp; Policy Generator</h3>
           <p>An AI-powered system that summarizes complex policy documents and automatically generates customized policy drafts.</p>
           <div class="chips"><span class="chip">Python</span></div>
           <div class="plinks">
@@ -758,7 +738,7 @@ footer { background:var(--ink-4); color:rgba(255,255,255,.7); padding:40px 0 26p
       <div class="pc r d2" data-cat="web">
         <div class="pt">
           <img src="image/19.png" alt="Personalized Book Recommendation App" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="pt-ph" style="display:none"><i class="fas fa-mobile-alt"></i></div>
+          <div class="pt-ph" style="display:none"><i class="fas fa-book-open"></i></div>
           <span class="cat-tag">Python</span>
         </div>
         <div class="pb">
@@ -772,14 +752,15 @@ footer { background:var(--ink-4); color:rgba(255,255,255,.7); padding:40px 0 26p
         </div>
       </div>
 
+      <!-- FIX: added image/ prefix to src -->
       <div class="pc r d2" data-cat="web">
         <div class="pt">
-          <img src="pandas_csv_reader_athlete_analysis.png" alt="Pandas CSV Reader & Basic Data Analysis on Athlete Events" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="pt-ph" style="display:none"><i class="fas fa-mobile-alt"></i></div>
+          <img src="image/pandas_csv_reader_athlete_analysis.png" alt="Pandas CSV Reader & Basic Data Analysis on Athlete Events" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-table"></i></div>
           <span class="cat-tag">Python</span>
         </div>
         <div class="pb">
-          <h3>Pandas CSV Reader & Basic Data Analysis on Athlete Events</h3>
+          <h3>Pandas CSV Reader &amp; Basic Data Analysis on Athlete Events</h3>
           <p>A data analysis project that uses Python Pandas to read athlete event datasets and generate basic insights and statistics.</p>
           <div class="chips"><span class="chip">Python</span></div>
           <div class="plinks">
@@ -789,27 +770,29 @@ footer { background:var(--ink-4); color:rgba(255,255,255,.7); padding:40px 0 26p
         </div>
       </div>
 
+      <!-- FIX: added image/ prefix to src; fixed broken href (sharingt → sharing) -->
       <div class="pc r d2" data-cat="web">
         <div class="pt">
-          <img src="time_series_store_sales.png" alt="Time Series & Category Charts on Store Sales" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="pt-ph" style="display:none"><i class="fas fa-mobile-alt"></i></div>
+          <img src="image/time_series_store_sales.png" alt="Time Series & Category Charts on Store Sales" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-chart-area"></i></div>
           <span class="cat-tag">Python</span>
         </div>
         <div class="pb">
-          <h3>Time Series & Category Charts on Store Sales</h3>
+          <h3>Time Series &amp; Category Charts on Store Sales</h3>
           <p>A sales analytics dashboard that visualizes store performance trends and category-wise sales using time series charts.</p>
           <div class="chips"><span class="chip">Python</span></div>
           <div class="plinks">
             <a href="https://drive.google.com/drive/folders/1BG_8e0Z2bmZ_gQUsgW_kYOQGh6cm5wpw?usp=sharing" target="_blank" class="pl"><i class="fab fa-google-drive"></i> Drive</a>
-            <a href="https://drive.google.com/drive/folders/1_LgHPCR5NFmUMnRXW0NUImlQ4InVD8l0?usp=sharingt" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://drive.google.com/drive/folders/1_LgHPCR5NFmUMnRXW0NUImlQ4InVD8l0?usp=sharing" target="_blank" class="pl"><i class="fab fa-github"></i> GitHub</a>
           </div>
         </div>
       </div>
 
+      <!-- FIX: added image/ prefix to src -->
       <div class="pc r d2" data-cat="web">
         <div class="pt">
-          <img src="netflix_media_dataset_eda.png" alt="Netflix / Media Dataset EDA on Movies" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="pt-ph" style="display:none"><i class="fas fa-mobile-alt"></i></div>
+          <img src="image/netflix_media_dataset_eda.png" alt="Netflix / Media Dataset EDA on Movies" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-film"></i></div>
           <span class="cat-tag">Python</span>
         </div>
         <div class="pb">
@@ -823,10 +806,11 @@ footer { background:var(--ink-4); color:rgba(255,255,255,.7); padding:40px 0 26p
         </div>
       </div>
 
+      <!-- FIX: added image/ prefix to src -->
       <div class="pc r d2" data-cat="web">
         <div class="pt">
-          <img src="ipl_sports_data_analysis.png" alt="IPL Sports Data Analysis on IPL Matches" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="pt-ph" style="display:none"><i class="fas fa-mobile-alt"></i></div>
+          <img src="image/ipl_sports_data_analysis.png" alt="IPL Sports Data Analysis on IPL Matches" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pt-ph" style="display:none"><i class="fas fa-trophy"></i></div>
           <span class="cat-tag">Python</span>
         </div>
         <div class="pb">
@@ -854,7 +838,6 @@ footer { background:var(--ink-4); color:rgba(255,255,255,.7); padding:40px 0 26p
       <div class="pub-img">
         <img src="image/Publication 01.png" alt="Publication 1"
              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <!-- Publication placeholder with clear background -->
         <div class="pub-ph" style="display:none"><i class="fas fa-file-alt"></i></div>
       </div>
       <div>
